@@ -5,17 +5,17 @@ import java.util.*;
 
 
 public class Main {
-    private static ArrayList<ArrayList<String>> playerNameList = new ArrayList<>();
-    private static ArrayList<Player> playerList = new ArrayList<>();
+    private static final ArrayList<ArrayList<String>> playerNameList = new ArrayList<>();
+    private static final ArrayList<Player> playerList = new ArrayList<>();
 
-    public static void winningCalulator(Player dealer, Deck cards) {
+    public static void winningCalculator(Player dealer, Deck cards) {
         ArrayList<Integer> scores = new ArrayList<>();
         for (Player player : playerList) {
             System.out.println(player.get_name() + " your score is " + player.get_score());
             scores.add(player.get_score());
         }
         int n = scores.size();
-        int temp = 0;
+        int temp;
         for (int i = 0; i < n; i++) {
             for (int j = 1; j < (n - i); j++) {
                 if (scores.get((j - 1)) > scores.get(j)) {
@@ -56,10 +56,11 @@ public class Main {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter how many players you want");
         int numplayers = input.nextInt();
+        System.out.println("here we go");
         for (int i = 0; i < numplayers; i++) {
             System.out.println("Please enter you player name: ");
             playerName = input.nextLine();
-            playerNameList.add(new ArrayList<String>());
+            playerNameList.add(new ArrayList<>());
             playerNameList.get(i).add(playerName);
 
         }
@@ -72,17 +73,16 @@ public class Main {
         cards.shuffle();
         Player player;
         //Deal hand of 2 cards to player and show cards.
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < numplayers; i++) {
             player = playerList.get(i);
             player.set_hand(cards.deal(2));
             System.out.println(player.get_name() + " your cards are: ");
             player.CalculateScore();
-            playerNameList.add(new ArrayList<String>());
+            playerNameList.add(new ArrayList<>());
             playerNameList.get(i).add(Integer.toString(player.get_score()));
             System.out.println("What would you like to do (S)tick or (D)eal another card? ");
             String player_choice = input.nextLine().toLowerCase(Locale.ROOT);
-            boolean play = true;
-            while (play) {
+            while (true) {
                 if (player_choice.equals("s")) {
                     break;
 
@@ -93,8 +93,9 @@ public class Main {
                 }
 
             }
+            // fix double print problem
             // check deal function
         }
-        winningCalulator(dealer, cards);
+        winningCalculator(dealer, cards);
     }
 }
