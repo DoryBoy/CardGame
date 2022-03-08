@@ -7,23 +7,22 @@ import java.util.*;
 public class Main {
     private static ArrayList<ArrayList<String>> playerNameList = new ArrayList<>();
     private static ArrayList<Player> playerList = new ArrayList<>();
-    public static void winningCalulator(Player dealer,Deck cards){
+
+    public static void winningCalulator(Player dealer, Deck cards) {
         ArrayList<Integer> scores = new ArrayList<>();
-        for (int i = 0; i < playerList.size(); i++) {
-           Player player = playerList.get(i);
+        for (Player player : playerList) {
             System.out.println(player.get_name() + " your score is " + player.get_score());
             scores.add(player.get_score());
         }
         int n = scores.size();
-        //iterate over the array comparing adjacent elements
         int temp = 0;
-        for(int i=0; i < n; i++){
-            for(int j=1; j < (n-i); j++){
-                if(scores.get((j-1)) > scores.get(j)){
+        for (int i = 0; i < n; i++) {
+            for (int j = 1; j < (n - i); j++) {
+                if (scores.get((j - 1)) > scores.get(j)) {
                     //swap elements
-                    temp = scores.get((j-1));
-                    scores.set((j-1), scores.get(j));
-                    scores.set(j,temp);
+                    temp = scores.get((j - 1));
+                    scores.set((j - 1), scores.get(j));
+                    scores.set(j, temp);
 //                    scores.get(j-1) = scores.get(j);
 //                    scores.get(j) = temp;
                 }
@@ -33,7 +32,21 @@ public class Main {
         dealer.set_hand(cards.deal(2));
         System.out.println(dealer.get_name() + "'s cards are: ");
         dealer.CalculateScore();
+        int win = 0;
+        for (int i = 0; i < scores.size(); i++) {
+            if (Objects.equals(playerNameList.get(i).get(1), Integer.toString(scores.get(scores.size() - 1)))) {
+                win = i;
+            }
+        }
+
+        if (scores.get((scores.size() - 1)) > dealer.get_score()) {
+
+            System.out.println(playerNameList.get(win).get(0) + "wins! with a score of " + playerNameList.get(win).get(1) + " dealer scored: " + dealer.get_score());
+        } else {
+            System.out.println("Dealer wins, you didn't beat the dealer, dealer scored: " + dealer.get_score() + " " + playerNameList.get(win).get(0) + " scored: " + playerNameList.get(win).get(1));
+        }
     }
+
     public static void main(String[] args) {
         //Initialisation.
         Deck cards = new Deck();
@@ -41,8 +54,9 @@ public class Main {
 
 
         Scanner input = new Scanner(System.in);
-
-        for (int i = 0; i < 2; i++) {
+        System.out.println("Enter how many players you want");
+        int numplayers = input.nextInt();
+        for (int i = 0; i < numplayers; i++) {
             System.out.println("Please enter you player name: ");
             playerName = input.nextLine();
             playerNameList.add(new ArrayList<String>());
@@ -50,7 +64,7 @@ public class Main {
 
         }
         System.out.println(playerNameList);
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < numplayers; i++) {
             Player players = new Player((playerNameList.get(i).get(0)));
             playerList.add(players);
         }
@@ -68,7 +82,7 @@ public class Main {
             System.out.println("What would you like to do (S)tick or (D)eal another card? ");
             String player_choice = input.nextLine().toLowerCase(Locale.ROOT);
             boolean play = true;
-            while (play){
+            while (play) {
                 if (player_choice.equals("s")) {
                     break;
 
@@ -79,21 +93,8 @@ public class Main {
                 }
 
             }
-            winningCalulator(dealer,cards);
-
-
-            //Deal hand of 2 cards to dealer and show cards.
-           {
-
-
-                if (player.get_score() > dealer.get_score()) {
-                    System.out.println(player.get_name() + "wins! with a score of " + player.get_score() + " dealer scored: " + dealer.get_score());
-                } else {
-                    System.out.println("Dealer wins, you didn't beat the dealer, dealer scored: " + dealer.get_score() + " player scored: " + player.get_score());
-                }
-            }
+            // check deal function
         }
-
-
+        winningCalulator(dealer, cards);
     }
 }
