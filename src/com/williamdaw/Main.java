@@ -41,6 +41,7 @@ public class Main {
 
 
         Scanner input = new Scanner(System.in);
+
         for (int i = 0; i < 2; i++) {
             System.out.println("Please enter you player name: ");
             playerName = input.nextLine();
@@ -50,12 +51,9 @@ public class Main {
         }
         System.out.println(playerNameList);
         for (int i = 0; i < 2; i++) {
-
+            Player players = new Player((playerNameList.get(i).get(0)));
+            playerList.add(players);
         }
-        Player player1 = new Player((playerNameList.get(0).get(0)));
-        Player player2 = new Player(playerNameList.get(1).get(0));
-        playerList.add(player1);
-        playerList.add(player2);
         Player dealer = new Player("dealer");
         cards.shuffle();
         Player player;
