@@ -5,8 +5,8 @@ import java.util.*;
 public class Deck {
     private Card[] cards = new Card[52];
     private String[] suits = {"Hearts", "Clubs", "Spades", "Diamonds"};
-    private String[] ranks = {"Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"};
-    private int[] values = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10};
+    private String[] ranks = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King","Ace"};
+    private int[] values = {2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10,11};
     private Stack<Card> shuffled_deck = new Stack<Card>();
 
     public Deck() {
