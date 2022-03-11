@@ -112,7 +112,7 @@ public class Main {
             }
             winningCalculator(dealer, cards);
             String ans;
-            while (true) {
+
                 System.out.println("would you like to continue playing y or n:");
                 ans = input.toString();
                 if (ans.toLowerCase(Locale.ROOT).equals("n")) {
@@ -121,8 +121,6 @@ public class Main {
                 } else if (ans.toLowerCase(Locale.ROOT).equals("y")) {
                     break;
                 }
-
-            }
             if (ans.equals("n")) {
                 break;
             }
